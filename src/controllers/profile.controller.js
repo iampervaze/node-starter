@@ -1,54 +1,54 @@
-const Task = require('models/task.model')
+const Profile = require('models/profile.model')
   , helpers = require('util/helpers');
 
-const {handle, handleErr} = helpers.handlers('Task', 'tasks')
+const {handle, handleErr} = helpers.handlers('Profile', 'profiles')
   , id = helpers.id;
 
 /**
  * Get task
  */
 function get(req, res, next) {
-  Task.findAndPopulate(id(req))
+  Profile.findAndPopulate(id(req))
     .then(task => handle(req, res, task) )
     .catch(err => handleErr(next, err, 'get('+id(req)+')') );
 }
 
 /**
- * Create new task
+ * Create new Profile
  */
 function create(req, res, next) {
-  const task = new Task(req.body);
+  const profile = new Profile(req.body);
 
-  task.save()
-    .then(savedTask => res.json(savedTask))
+  profile.save()
+    .then(o => res.json(o))
     .catch(err => handleErr(next, err, 'post()') );
 }
 
 /**
- * Update existing task
+ * Update existing profile
  */
 function update(req, res, next) {
-  Task.findByIdAndUpdate(id(req), req.body, {new: true}).exec()
-    .then(task => handle(req, res, task) )
+  Profile.findByIdAndUpdate(id(req), req.body, {new: true}).exec()
+    .then(o => handle(req, res, o) )
     .catch(err => handleErr(next, err, 'put('+id(req)+')') );
 }
 
 /**
- * Get task list
+ * Get profile list
  */
 function list(req, res, next) {
   const { limit = "0", skip = "0" } = req.query;
-  Task.list({ limit, skip })
-    .then(tasks => res.json(tasks))
+  Profile.list({ limit, skip })
+    .then(o => res.json(o))
     .catch(err => handleErr(next, err, 'getAll()') );
 }
 
 /**
- * Delete task
+ * Delete Profile
  */
 function remove(req, res, next) {
-  Task.findByIdAndRemove(id(req)).exec()
-    .then(task => handle(req, res, task) )
+  Profile.findByIdAndRemove(id(req)).exec()
+    .then(o => handle(req, res, o) )
     .catch(err => handleErr(next, err, 'put('+id(req)+')') );
 }
 

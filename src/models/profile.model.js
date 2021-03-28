@@ -1,29 +1,15 @@
 const mongoose = require('mongoose')
   , Schema = mongoose.Schema;
 
-/**
- * Task schema
- */
-const TaskSchema = new mongoose.Schema({
-  description: {
-    type: String,
-    required: true,
-    minlength: [5, 'The value of path `{PATH}` (`{VALUE}`) is shorter than the minimum allowed length ({MINLENGTH})']
-  },
-  assignee : {
-    type: Schema.Types.ObjectId,
-    required: true,
-    ref: 'User'
-  },
-  dueDate : {
-    type: Date
-  }
+const ProfileSchema = new Schema({
+  name:String,
+  image: String,
 }, { timestamps: true });
 
 /**
  * Statics
  */
-TaskSchema.statics = {
+ ProfileSchema.statics = {
   /**
    * List tasks in ascending order of 'dueDate' timestamp (oldest ones first)
    */
@@ -45,4 +31,4 @@ TaskSchema.statics = {
   }
 };
 
-module.exports = mongoose.model('Task', TaskSchema);
+module.exports = mongoose.model('Profile', ProfileSchema);

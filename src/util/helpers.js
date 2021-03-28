@@ -20,14 +20,7 @@ function handleResult(req/*currently not used*/, res, data, entity) {
     res.json(data);
 }
 
-/**
- * Enrich error and chain to next middleware, see:
- * https://derickbailey.com/2014/09/06/proper-error-handling-in-expressjs-route-handlers/
- */
 function handleError(next, err, context) {
-    // this log statement is not really useful, only used to show how to log something through "require('winston')" ...
-    //logger.debug('There was an error', err);
-
     if (context) {
         err.context = context;
     }
